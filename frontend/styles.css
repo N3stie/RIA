@@ -1,0 +1,99 @@
+:root {
+	--paper: #e9e2d6;
+	--ink: #26231f;
+	--soft-ink: #756d62;
+	--line: rgba(38, 35, 31, .2);
+	--coral: #e56d58;
+	--cream: #f6f1e9;
+	--shadow: 0 24px 70px rgba(51, 42, 32, .14);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+	margin: 0;
+	min-width: 320px;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: "Manrope", sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+body::before {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	content: "";
+	opacity: .3;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
+	mix-blend-mode: multiply;
+}
+
+main { min-height: 100svh; padding: 28px clamp(22px, 5vw, 72px) 42px; }
+.topline { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom: 1px solid var(--line); color: var(--soft-ink); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .13em; text-transform: uppercase; }
+.topline span:last-child { color: var(--coral); }
+.story { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(360px, .98fr); gap: clamp(34px, 7vw, 112px); align-items: center; max-width: 1280px; min-height: calc(100svh - 116px); margin: 0 auto; padding: clamp(44px, 8vh, 96px) 0; }
+.message { max-width: 640px; animation: reveal .8s ease-out both; }
+.date { display: block; margin-bottom: 28px; color: var(--coral); font: 500 11px/1.4 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+.message p { margin: 0; font: italic 500 clamp(2.8rem, 6vw, 6.8rem)/.96 "Playfair Display", Georgia, serif; letter-spacing: -.035em; }
+.signature { display: block; margin-top: 38px; color: var(--soft-ink); font: 500 12px/1.6 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.visual-column { animation: reveal .8s .14s ease-out both; }
+.photo-frame { position: relative; overflow: hidden; aspect-ratio: 4 / 5; max-height: 70svh; background: #9f7864; box-shadow: var(--shadow); }
+.photo-frame::after { position: absolute; inset: 0; content: ""; background: linear-gradient(155deg, transparent 45%, rgba(22, 18, 14, .2)); pointer-events: none; }
+.photo-frame img, .photo-frame video { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.82) sepia(.08); }
+.photo-label { position: absolute; right: 18px; bottom: 16px; z-index: 1; color: white; font: 10px/1 "DM Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+.location { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; margin-top: 22px; padding-top: 17px; border-top: 1px solid var(--line); }
+.eyebrow { display: block; margin-bottom: 7px; color: var(--soft-ink); font: 10px/1 "DM Mono", monospace; letter-spacing: .13em; text-transform: uppercase; }
+.place { margin: 0; font: 500 22px/1.15 "Playfair Display", Georgia, serif; }
+.coordinates { color: var(--soft-ink); text-align: right; font: 10px/1.5 "DM Mono", monospace; }
+.heart { display: inline-grid; place-items: center; width: 29px; height: 29px; margin-left: 8px; border: 1px solid var(--coral); border-radius: 50%; color: var(--coral); font-size: 14px; animation: pulse 2.6s ease-in-out infinite; }
+
+.memories-footer { max-width: 1280px; margin: 56px auto 0; padding: 82px 0 42px; border-top: 1px solid var(--line); }
+.footer-intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 28px; }
+.footer-intro .eyebrow { margin: 0; }
+.footer-intro p { margin: 0; font: italic 500 clamp(1.6rem, 3vw, 2.5rem)/1 "Playfair Display", Georgia, serif; }
+.memory-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.memory-card { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; perspective: 1100px; }
+.card-inner { position: relative; display: block; aspect-ratio: 3 / 4; transform-style: preserve-3d; transition: transform .75s cubic-bezier(.2, .7, .2, 1); }
+.memory-card[aria-pressed="true"] .card-inner { transform: rotateY(180deg); }
+.card-face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; backface-visibility: hidden; }
+.card-cover { padding: 20px; border: 1px solid var(--line); background: var(--cream); }
+.card-cover::after { position: absolute; right: 20px; bottom: 20px; width: 58px; height: 58px; border: 1px solid var(--coral); border-radius: 50%; content: ""; opacity: .65; }
+.card-number { color: var(--coral); font: 500 11px/1 "DM Mono", monospace; letter-spacing: .12em; }
+.card-title { max-width: 160px; font: italic 500 clamp(1.45rem, 2.3vw, 2.2rem)/.98 "Playfair Display", Georgia, serif; }
+.card-hint { color: var(--soft-ink); font: 9px/1 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+.card-photo { transform: rotateY(180deg); background: #9f7864; box-shadow: var(--shadow); }
+.card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.82) sepia(.08); }
+.card-photo::after { position: absolute; inset: 0; content: ""; background: linear-gradient(155deg, transparent 45%, rgba(22, 18, 14, .28)); pointer-events: none; }
+.card-caption { position: absolute; right: 14px; bottom: 14px; left: 14px; z-index: 1; color: white; font: 9px/1.35 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+.memory-card:focus-visible { outline: 2px solid var(--coral); outline-offset: 6px; }
+
+@keyframes reveal { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+@media (max-width: 760px) {
+	main { padding: 20px 18px 30px; }
+	.topline { padding-bottom: 14px; font-size: 9px; }
+	.story { display: block; min-height: auto; padding: 58px 0 0; }
+	.message { margin-bottom: 48px; }
+	.date { margin-bottom: 22px; }
+	.message p { font-size: clamp(3rem, 14vw, 5.4rem); }
+	.signature { margin-top: 26px; font-size: 10px; }
+	.photo-frame { max-height: none; aspect-ratio: 4 / 5; }
+	.location { gap: 12px; margin-top: 18px; }
+	.place { font-size: 19px; }
+	.coordinates { font-size: 9px; }
+	.memories-footer { margin-top: 64px; padding: 58px 0 28px; }
+	.footer-intro { display: block; margin-bottom: 22px; }
+	.footer-intro p { margin-top: 13px; }
+	.memory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+	.card-cover { padding: 14px; }
+	.card-cover::after { right: 14px; bottom: 14px; width: 42px; height: 42px; }
+	.card-title { font-size: 1.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
